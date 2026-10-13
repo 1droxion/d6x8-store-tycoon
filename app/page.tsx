@@ -1,0 +1,1 @@
+export default function Home(){return <iframe src="/game/index.html?v=device-beta-5" title="Corner to Empire" style={{position:'fixed',inset:0,width:'100%',height:'100%',border:0}} allow="fullscreen; gamepad"/>}

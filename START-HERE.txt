@@ -1,0 +1,35 @@
+D6X8 — Corner to Empire
+
+Graphics edition: improved city art, camera and controls.
+Base source: 712d22d27955ab381898f78ed1288db9367bc665
+Read GRAPHICS-UPDATE.md for changes and validation limits.
+
+PLAY OFFLINE / SINGLE PLAYER
+Install Python 3, open a terminal in the extracted project folder, and run:
+  python -m http.server 8080 --directory public
+Open http://localhost:8080/game/index.html in a WebGL-capable browser.
+Do not open index.html by double-clicking: textures and modules need an HTTP server.
+
+Controls: WASD/arrows move; mouse looks; E interact; P phone; F car; V owner view; C overhead city view.
+City view: WASD/arrows or drag to pan; wheel or + / - to zoom; rotate / Find me buttons.
+Phones: touch arrows, drag on the right to look.
+
+FULL SERVER PROJECT
+Source includes the Vinext/Cloudflare server, D1 schema and migrations, plus all game assets.
+Use Node >=22.13, pnpm, and a Cloudflare-compatible environment for the full server.
+The included infrastructure scripts target the original Sites environment; see README.md.
+Hosted multiplayer requires D1 plus authenticated user headers. The simple Python server
+above does not provide multiplayer. Do not expose a server that trusts client-supplied identity headers.
+
+Tests after dependency setup:
+  node verify.cjs
+  node business-check.cjs
+  node online-check.cjs
+  node smoke.cjs
+
+This is a browser prototype, not an Android APK, iOS IPA or finished desktop installer.
+Ads and real-money purchases are not connected. Store balances and business income are fictional.
+Real-device graphics/performance and live multiplayer testing remain pending.
+
+Licenses and asset attribution: public/game/ASSET-CREDITS.txt and THREE-LICENSE.txt.
+No credentials, private database contents, dependencies, caches or Git history are included.

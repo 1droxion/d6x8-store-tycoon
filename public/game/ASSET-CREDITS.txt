@@ -1,0 +1,11 @@
+Surface maps and HDR lighting: Poly Haven, CC0.
+Wood Floor: https://polyhaven.com/a/wood_floor
+Floor Tiles 06: https://polyhaven.com/a/floor_tiles_06
+Asphalt 02: https://polyhaven.com/a/asphalt_02
+Brick Wall 001: https://polyhaven.com/a/brick_wall_001
+Kiara 1 Dawn: https://polyhaven.com/a/kiara_1_dawn
+License: https://polyhaven.com/license
+
+Three.js r160: MIT, license included in THREE-LICENSE.txt.
+Characters, vehicles and building geometry are procedural low-poly models authored for this prototype.
+All shop packaging is fictional, authored for this prototype.
