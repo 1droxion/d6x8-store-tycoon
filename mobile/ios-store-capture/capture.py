@@ -3,8 +3,8 @@ import json,pathlib,subprocess,time,os
 run=lambda *args:subprocess.check_output(args,text=True)
 base=pathlib.Path('ios-store-screenshots');base.mkdir(exist_ok=True)
 data=json.loads(run('xcrun','simctl','list','devices','available','--json'))
-devices=[d for group in data['devices'].values() for d in group if d.get('isAvailable')]
-choices=[('iphone-medium',['iPhone 17 Pro','iPhone 16 Pro']),('iphone-large',['iPhone 17 Pro Max','iPhone 16 Pro Max']),('ipad-13',['iPad Pro 13-inch (M5)','iPad Pro 13-inch (M4)','iPad Air 13-inch (M3)'])]
+devices=[d for runtime,group in data['devices'].items() if 'iOS-18-' in runtime for d in group if d.get('isAvailable')] or [d for group in data['devices'].values() for d in group if d.get('isAvailable')]
+choices=[('iphone-medium',['iPhone 16 Pro','iPhone 17 Pro']),('iphone-large',['iPhone 16 Pro Max','iPhone 17 Pro Max']),('ipad-13',['iPad Pro 13-inch (M5)','iPad Pro 13-inch (M4)','iPad Air 13-inch (M3)'])]
 notes=[]
 for category,names in choices:
  if os.environ.get('CAPTURE_DEVICE') and category!=os.environ['CAPTURE_DEVICE']:continue
