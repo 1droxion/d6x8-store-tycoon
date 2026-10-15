@@ -13,15 +13,15 @@ const assert = require('node:assert/strict');
   try {const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname);const filename=path.resolve(root,'.'+(pathname==='/'?'/index.html':pathname));if(!filename.startsWith(root+path.sep)){res.writeHead(403).end();return;}const bytes=await fs.readFile(filename);res.setHeader('Content-Type',types[path.extname(filename)]||'application/octet-stream');res.end(bytes);}catch{res.writeHead(404).end();}
  });
  await new Promise(r=>server.listen(8080,'127.0.0.1',r));
- const browser=await chromium.launch({headless:true,args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+ const browser=await chromium.launch({headless:true,channel:'chromium',args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
  try {
-  const context=await browser.newContext({viewport:{width:1920,height:1080},deviceScaleFactor:1,isMobile:true,hasTouch:true,userAgent:'Mozilla/5.0 (Linux; Android 15) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36'});
-  const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  const context=await browser.newContext({viewport:{width:1280,height:720},deviceScaleFactor:1.5,isMobile:true,hasTouch:true,userAgent:'Mozilla/5.0 (Linux; Android 15) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36'});
+  const page=await context.newPage();page.setDefaultTimeout(120000);const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.goto('http://127.0.0.1:8080/',{waitUntil:'networkidle'});
   await page.locator('#play').click();await page.locator('#skipIntro').click();
   await page.waitForTimeout(4000);
   assert(!await page.getByText('WebGL is unavailable.',{exact:false}).count(),'WebGL failed');
-  async function capture(name){await page.waitForTimeout(1800);await page.screenshot({path:path.join(output,name+'.png')});}
+  async function capture(name){console.log('Capturing '+name);await page.waitForTimeout(3000);await page.screenshot({path:path.join(output,name+'.png'),timeout:120000,animations:'disabled'});console.log('Saved '+name);}
   await capture('01-your-neighborhood-store');
   await page.locator('#moreMenu').click();
   await page.locator('#cityView').click();await capture('02-explore-the-city');
