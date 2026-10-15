@@ -1,0 +1,31 @@
+name: iOS-sized gameplay rendering
+on:
+  push:
+    paths: ['mobile/capture-ios-size-screenshots.cjs', '.github/workflows/ios-size-screenshots.yml']
+permissions:
+  contents: read
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        device: [iphone-medium, iphone-large, ipad-13]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci --prefix mobile --ignore-scripts --no-audit --no-fund
+      - run: npm install --prefix mobile --no-save --ignore-scripts --package-lock=false playwright@1.64.1
+      - run: npx --prefix mobile playwright install --with-deps chromium
+      - run: npm run prepare:web --prefix mobile
+      - run: node mobile/capture-ios-size-screenshots.cjs
+        env:
+          CAPTURE_DEVICE: ${{ matrix.device }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ios-size-rendering-${{ matrix.device }}
+          path: mobile/ios-size-screenshots/
