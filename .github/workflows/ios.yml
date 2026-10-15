@@ -20,7 +20,7 @@ jobs:
         working-directory: mobile
       - run: npm run sync:ios
         working-directory: mobile
-      - run: node mobile/rewards-check.cjs && node verify.cjs && node stocker-check.cjs
+      - run: node mobile/rewards-check.cjs && node verify.cjs && node stocker-check.cjs && node touch-controls-check.cjs
       - name: Compile iPhone and iPad app without signing
         run: |
           set -o pipefail

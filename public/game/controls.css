@@ -7,3 +7,23 @@ html,body{width:100%;height:100%;overscroll-behavior:none}#canvas{height:100vh;h
 .menu button,#cityControls button{min-width:44px}.touch-mode #cityControls button{min-width:44px!important}
 
 .control-field select{min-height:44px}@media(max-height:700px){.tv-mode .mini-map{width:100px}.tv-mode .bottom{width:min(540px,calc(100vw - 32px))}.tv-mode .objective,.tv-mode .worldHUD,.tv-mode .life-hud{display:none}.tv-mode button{font-size:14px!important}.tv-mode .menu{width:270px;max-width:270px}}
+
+/* Clear play space: nearby actions and one bottom menu on every touch device. */
+.cross{display:none!important}
+#interactionPanel[hidden]{display:none!important}
+#interactionPanel{width:min(330px,calc(100vw - 32px));pointer-events:none}
+#interactionPanel #interact{pointer-events:auto;width:100%;border-radius:22px;background:linear-gradient(135deg,#ffe1a0,#efb75e);color:#25383f;border:1px solid #fff0c4;box-shadow:0 4px 18px #071f3040;font-size:13px;min-height:48px}
+#interactionPanel #prompt{display:none}
+#interactionPanel.show-tip #prompt{display:block;font-size:11px;padding:8px;background:#163b4eed;color:#e8f7ff}
+#interactionPanel .hint{display:none}
+.touch-mode .touch button{border-radius:50%;background:linear-gradient(145deg,#285d73ed,#173a50ed);border:2px solid #b3e7f399;box-shadow:0 4px 12px #071d3040;font-size:21px;color:#f0fbff;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.touch-mode .touch button:active{background:#418a9b;transform:scale(.94)}
+.touch-mode:not(.menu-expanded) #actionMenu{width:56px!important;max-width:56px!important;overflow:visible;padding:0;background:none}
+.touch-mode:not(.menu-expanded) #actionMenu>button:not(#moreMenu){display:none!important}
+.touch-mode #actionMenu #moreMenu{display:block!important;flex:0 0 52px;width:52px;height:52px;border-radius:50%;font-size:22px;letter-spacing:2px;background:#214d65;color:#fff;border:1px solid #b3e7f388;box-shadow:0 4px 16px #09233244}
+.touch-mode.menu-expanded #actionMenu{width:min(270px,calc(100vw - 32px))!important;max-width:270px;background:#123449f5;border:1px solid #a4d8e655;padding:10px;border-radius:20px;gap:7px;box-shadow:0 10px 32px #06182d66}
+.touch-mode.menu-expanded #actionMenu>button{display:block!important;background:#285369;border-radius:12px;font-size:12px}
+.touch-mode.menu-expanded #actionMenu>button[hidden]{display:none!important}
+.touch-mode .hud .stat{background:#14384aeb;border-color:#b8e7ef33}
+.touch-mode .objective{background:#14384ad9;color:#eff8f5}
+.touch-mode .objective b{color:#ffe1a0}
