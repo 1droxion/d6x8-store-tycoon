@@ -8,7 +8,11 @@ permissions:
 jobs:
   capture:
     runs-on: macos-26
-    timeout-minutes: 25
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        device: [iphone-medium, iphone-large, ipad-13]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -22,11 +26,15 @@ jobs:
       - run: |
           set -o pipefail
           xcodebuild -project mobile/ios/App/App.xcodeproj -scheme App -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build/ios-store CODE_SIGNING_ALLOWED=NO build | tee ios-store-build.log
-      - run: python3 mobile/ios-store-capture/capture.py
+      - run: open -a Simulator
+      - run: python3 -u mobile/ios-store-capture/capture.py
+        timeout-minutes: 7
+        env:
+          CAPTURE_DEVICE: ${{ matrix.device }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: ios-app-store-screenshots
+          name: ios-app-store-screenshots-${{ matrix.device }}
           path: |
             ios-store-screenshots/
             ios-store-build.log
