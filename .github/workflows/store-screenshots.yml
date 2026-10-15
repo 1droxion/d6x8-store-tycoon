@@ -1,0 +1,26 @@
+name: Store gameplay screenshots
+on:
+  workflow_dispatch:
+  push:
+    paths: ['mobile/capture-store-screenshots.cjs', '.github/workflows/store-screenshots.yml']
+permissions:
+  contents: read
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci --prefix mobile --ignore-scripts --no-audit --no-fund
+      - run: npm install --prefix mobile --no-save --ignore-scripts --package-lock=false playwright@1.64.1
+      - run: npx --prefix mobile playwright install --with-deps chromium
+      - run: npm run prepare:web --prefix mobile
+      - run: node mobile/capture-store-screenshots.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: store-gameplay-screenshots
+          path: mobile/store-screenshots/
