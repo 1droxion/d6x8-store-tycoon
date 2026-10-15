@@ -1,0 +1,34 @@
+name: iOS simulator build
+on:
+  workflow_dispatch:
+  push:
+    paths: ['mobile/**', 'public/game/**', '.github/workflows/ios.yml']
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: mobile/package-lock.json
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+        working-directory: mobile
+      - run: npm run sync:ios
+        working-directory: mobile
+      - run: node mobile/rewards-check.cjs && node verify.cjs && node stocker-check.cjs
+      - name: Compile iPhone and iPad app without signing
+        run: |
+          set -o pipefail
+          xcodebuild -project mobile/ios/App/App.xcodeproj -scheme App -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build/ios-simulator CODE_SIGNING_ALLOWED=NO build | tee ios-build.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: store-tycoon-ios-simulator
+          path: |
+            build/ios-simulator/Build/Products/Debug-iphonesimulator/App.app
+            ios-build.log

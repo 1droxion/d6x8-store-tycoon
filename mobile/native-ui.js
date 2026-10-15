@@ -16,6 +16,10 @@
   }
   async function rewardsScreen() {
     const wrap = document.createElement('div');
+    if (window.Capacitor?.getPlatform?.() === 'ios') {
+      wrap.append(paragraph('Your city and store progress are saved on this device. This iPhone and iPad release is single-player and includes no ads or in-app purchases.'), policy());
+      show('Privacy & game info', wrap, 'phone'); return;
+    }
     wrap.append(paragraph('Your city and store progress are saved on this device. Online multiplayer is not available in this Android release.'));
     wrap.append(paragraph('OPTIONAL REWARD · Watch an ad to earn 100 store cash. This is fictional in-game currency, cannot be withdrawn, and has no real-money value. You can play the entire core game without watching ads.'));
     if (!plugin()) { wrap.append(paragraph('Rewarded ads are available only in the Android app.')); }

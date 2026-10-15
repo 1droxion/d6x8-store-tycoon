@@ -1,11 +1,18 @@
 {
-  "name": "d6x8-store-tycoon-android",
+  "name": "d6x8-store-tycoon-mobile",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "prepare:web": "node prepare-web.mjs",
-    "sync": "npm run prepare:web && cap sync android"
+    "sync": "npm run prepare:web && cap sync android",
+    "sync:ios": "npm run prepare:web && cap sync ios"
   },
-  "dependencies": {"@capacitor/core": "8.5.3", "@capacitor/android": "8.5.3"},
-  "devDependencies": {"@capacitor/cli": "8.5.3"}
+  "dependencies": {
+    "@capacitor/android": "8.5.3",
+    "@capacitor/core": "8.5.3",
+    "@capacitor/ios": "8.5.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.3"
+  }
 }

@@ -1,0 +1,42 @@
+workflows:
+  ios-app-store:
+    name: Store Tycoon City Life - iOS App Store
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    integrations:
+      app_store_connect: codemagic
+    environment:
+      xcode: latest
+      node: 24
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.d6x8.storetycoon
+    scripts:
+      - name: Install and prepare iOS game
+        script: |
+          set -e
+          cd "$CM_BUILD_DIR/mobile"
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm run sync:ios
+          node rewards-check.cjs
+      - name: Set unique build number
+        script: |
+          set -e
+          cd "$CM_BUILD_DIR/mobile/ios/App"
+          agvtool new-version -all "$BUILD_NUMBER"
+      - name: Apply App Store signing profiles
+        script: |
+          cd "$CM_BUILD_DIR/mobile/ios/App"
+          xcode-project use-profiles
+      - name: Build signed IPA
+        script: |
+          cd "$CM_BUILD_DIR/mobile/ios/App"
+          xcode-project build-ipa --project App.xcodeproj --scheme App
+    artifacts:
+      - mobile/ios/App/build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        submit_to_app_store: false
