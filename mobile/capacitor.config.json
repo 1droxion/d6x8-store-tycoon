@@ -1,0 +1,7 @@
+{
+  "appId": "com.d6x8.storetycoon",
+  "appName": "D6X8 Store Tycoon",
+  "webDir": "www",
+  "android": {"allowMixedContent": false},
+  "server": {"androidScheme": "https"}
+}
