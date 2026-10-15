@@ -2,7 +2,7 @@
 
 Effective date: October 15, 2026
 
-Store Tycoon: City Life (`com.d6x8.storetycoon`) is published by D6X8 / Dhruv Patel. This policy describes the Android game. The separate browser demo has its own hosted sign-in and online-presence behavior and is not the Android game.
+Store Tycoon: City Life (`com.d6x8.storetycoon`) is published by D6X8 / Dhruv Patel. This policy covers the native Android and iOS games. The platform-specific sections below explain their differences. The separate browser demo has its own hosted sign-in and online-presence behavior and is not the Android game.
 
 ## Gameplay data on your device
 
@@ -10,7 +10,11 @@ The Android game stores your shop name, fictional store balance, inventory, upgr
 
 The game does not request camera, microphone, contacts, precise location, or photo-library access. All store balances, bank and stock simulations, property prices and rewards are fictional game currency. They have no cash value and cannot be withdrawn, exchanged or transferred to other players.
 
-## Optional advertising
+## iPhone and iPad release
+
+The iOS release is single-player and has no advertising SDK, third-party analytics, account registration, chat, online multiplayer, or in-app purchases. Store progress and control preferences stay in local app storage and are not transmitted to our server. We do not collect data from the iOS game. External privacy and support links open only when you choose them. Apple may handle system backups and diagnostics according to your device settings and Apple's policies. Resetting the game, removing its local data, or uninstalling may delete progress.
+
+## Optional advertising — Android only
 
 Adults who choose to enable optional rewarded ads can watch an ad for the clearly stated in-game reward. Players can continue core gameplay without watching ads. Players who select Under 18 or Prefer not to say are not offered ads. That age-group choice stays on the device; we do not ask for a birth date.
 
