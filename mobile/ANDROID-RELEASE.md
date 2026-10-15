@@ -4,8 +4,10 @@ App: D6X8 Store Tycoon. Package: `com.d6x8.storetycoon`.
 
 The native shell packages `public/game` locally with Capacitor 8.5.3. It does
 not load the hosted site. Progress stays in the Android WebView storage.
-The Android preview has no online login, ads SDK or billing SDK; its online
-screen explains these limits. Existing browser saves do not transfer.
+The Android release has no online login or billing SDK. Optional rewarded
+ads use Google Mobile Ads and UMP consent. Debug uses Google test IDs; release
+uses the owner's AdMob IDs. Existing browser saves do not transfer.
+See store-assets/RELEASE-STATUS.md for remaining release prerequisites.
 
 ## Build
 
@@ -39,4 +41,4 @@ not a Google Play submission. Do not upload an unsigned bundle to Play.
    then complete the Play production release and submit for review.
 
 Increase versionCode for every subsequent uploaded bundle. This initial
-wrapper is versionCode 1 / versionName 1.0. Default launcher art is temporary.
+release is versionCode 2 / versionName 1.0.1. Generated storefront branding replaces the default launcher art.

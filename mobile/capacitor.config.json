@@ -1,6 +1,6 @@
 {
   "appId": "com.d6x8.storetycoon",
-  "appName": "D6X8 Store Tycoon",
+  "appName": "Store Tycoon: City Life",
   "webDir": "www",
   "android": {"allowMixedContent": false},
   "server": {"androidScheme": "https"}

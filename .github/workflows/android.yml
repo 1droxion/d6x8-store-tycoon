@@ -24,6 +24,7 @@ jobs:
           packages: 'platform-tools platforms;android-36 build-tools;36.0.0'
       - run: npm ci --ignore-scripts --no-audit --no-fund
         working-directory: mobile
+      - run: node mobile/rewards-check.cjs && node verify.cjs && node stocker-check.cjs
       - run: npm run sync
         working-directory: mobile
       - run: chmod +x gradlew && ./gradlew assembleDebug bundleRelease lintDebug

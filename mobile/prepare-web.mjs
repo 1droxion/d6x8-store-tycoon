@@ -6,9 +6,10 @@ await mkdir(destination, { recursive: true });
 await cp(root, destination, { recursive: true });
 // The packaged build has no Sites authentication/backend. Never send native
 // presence requests to localhost or imply that online play/payments work.
-const native = `\n<script>\nwindow.addEventListener('DOMContentLoaded', function () {\n  window.onlineScreen = function () {\n    show('Android preview', '<p>This Android preview supports single-player play. Progress is saved on this device.</p><p>Online play, real ads and purchases are not available in this build.</p>', 'phone');\n  };\n});\n</script>\n`;
+await cp(new URL('./native-ui.js', import.meta.url), new URL('native-ui.js', destination));
+const native = '<script src="native-ui.js"></script>\n';
 const index = new URL('index.html', destination);
 let html = await readFile(index, 'utf8');
-html = html.replace('</body>', native + '</body>');
+html = html.replace('</body>', native + '</body>').replaceAll('Online & store', 'Rewards & privacy');
 await writeFile(index, html);
-console.log('Packaged local game assets; online/purchase screen is preview-only.');
+console.log('Packaged local game assets with optional native rewarded ads.');
